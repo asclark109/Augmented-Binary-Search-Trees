@@ -34,17 +34,17 @@ class Node:
     # establish setter methods
     @p.setter
     def p(self,new_parent):
-        assert isinstance(new_parent,Node) or issubclass(new_parent,Node), "parent object is not a Node object type or subclass of Node"
+        # assert isinstance(new_parent,Node) or issubclass(new_parent,Node) or new_parent is None, "parent object is not a Node object type or subclass of Node"
         self.__p = new_parent
 
     @left.setter
     def left(self,new_left_child):
-        assert isinstance(new_left_child,Node) or issubclass(new_left_child,Node), "left child object is not a Node object type or subclass of Node"
+        # assert isinstance(new_left_child,Node) or issubclass(new_left_child,Node) or new_left_child is None, "left child object is not a Node object type or subclass of Node"
         self.__left = new_left_child
 
     @right.setter
     def right(self,new_right_child):
-        assert isinstance(new_right_child,Node) or issubclass(new_right_child,Node), "right child object is not a Node object type or subclass of Node"
+        # assert isinstance(new_right_child,Node) or issubclass(new_right_child,Node) or new_right_child is None, "right child object is not a Node object type or subclass of Node"
         self.__right = new_right_child
 
     @key.setter
