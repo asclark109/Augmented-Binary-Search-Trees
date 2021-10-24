@@ -47,26 +47,18 @@ class HeightBST(BST):
             y.right = z
         HeightNode.update_heights_upward(z.p)
 
-    def transplant(self, u: Node, v: Node):
-        """trasnplants Node z to Node u. Assumes both in Tree"""
-        if u.p is None:
-            self.root = v
-        elif u == u.p.left:
-            u.p.left = v
-        else:
-            u.p.right = v
-        if v is not None:
-            v.p = u.p
-
-    def delete(self,z: Node):
+    def delete(self,z: HeightNode):
         """Deletes Node from BST. Assumes z in BST!"""
 
-        assert isinstance(z,Node), "node object asked to be deleted is not of type Node"
+        assert isinstance(z,HeightNode), "node object asked to be deleted is not of type Node"
 
+        z_parent = z.p                               # new
         if z.left is None:
             self.transplant(z,z.right)
+            z_parent.update_heights_upward()         # new
         elif z.right is None:
             self.transplant(z,z.left)
+            z_parent.update_heights_upward()         # new
         else:
             y = self.minimum(z.right)
             if y.p is not None:
@@ -76,6 +68,7 @@ class HeightBST(BST):
             self.transplant(z,y)
             y.left = z.left
             y.left.p = y
+            y.update_heights_upward()         # new
 
 
 def main():
@@ -123,7 +116,17 @@ def main():
 
     # generate and insert 15 random new Nodes into the BST
     # add 2 specific nodes to test deleting after
-    NUM_NODES = 15
+    NUM_NODES = 6
+    for i in range(NUM_NODES):
+        j = random.randint(1,50)   
+        my_tree.insert(HeightNode(j))
+    # insert 2 nodes. then delete them
+    node_1 = HeightNode(17)
+    node_2 = HeightNode(3)
+    print("inserting 2 nodes:"+str(node_1)+", "+str(node_2))
+    my_tree.insert(node_1)
+    my_tree.insert(node_2)
+    NUM_NODES = 6
     for i in range(NUM_NODES):
         j = random.randint(1,50)   
         my_tree.insert(HeightNode(j))
@@ -131,24 +134,15 @@ def main():
     # print BST
     my_tree.display()
     
-    # # print minimum key in BST
-    # print("minimum key value: "+str(my_tree.minimum()))
+    # print minimum key in BST
+    print("minimum key value: "+str(my_tree.minimum()))
 
-    # # insert 2 nodes. then delete them
-    # node_1 = Node(17)
-    # node_2 = Node(3)
-
-    # print("inserting 2 nodes:"+str(node_1)+", "+str(node_2))
-    # my_tree.insert(node_1)
-    # my_tree.insert(node_2)
-    # my_tree.display()
-
-    # print("deleting node: "+str(node_1))
-    # my_tree.delete(node_1)
-    # my_tree.display()
-    # print("deleting node: "+str(node_2))
-    # my_tree.delete(node_2)
-    # my_tree.display()
+    print("deleting node: "+str(node_1))
+    my_tree.delete(node_1)
+    my_tree.display()
+    print("deleting node: "+str(node_2))
+    my_tree.delete(node_2)
+    my_tree.display()
 
 
 if __name__ == "__main__":
