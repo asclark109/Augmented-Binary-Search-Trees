@@ -16,15 +16,15 @@ class Node:
         
     # give decorators to all the instance variables of Node
     @property
-    def p(self):
+    def p(self) -> "Node":
         return self.__p
 
     @property
-    def left(self):
+    def left(self)-> "Node":
         return self.__left
 
     @property
-    def right(self):
+    def right(self) -> "Node":
         return self.__right
 
     @property
@@ -64,11 +64,14 @@ class Node:
         for line in lines:
             print(line)
 
+    def my_display_info(self) -> str:
+        return '%s' % self.key
+
     def _display_aux(self):
         """Returns list of strings, width, height, and horizontal coordinate of the root."""
         # No child.
         if self.right is None and self.left is None:
-            line = '%s' % self.key
+            line = self.my_display_info()
             width = len(line)
             height = 1
             middle = width // 2
@@ -77,7 +80,7 @@ class Node:
         # Only left child.
         if self.right is None:
             lines, n, p, x = self.left._display_aux()
-            s = '%s' % self.key
+            s = self.my_display_info()
             u = len(s)
             first_line = (x + 1) * ' ' + (n - x - 1) * '_' + s
             second_line = x * ' ' + '/' + (n - x - 1 + u) * ' '
@@ -87,7 +90,7 @@ class Node:
         # Only right child.
         if self.left is None:
             lines, n, p, x = self.right._display_aux()
-            s = '%s' % self.key
+            s = self.my_display_info()
             u = len(s)
             first_line = s + x * '_' + (n - x) * ' '
             second_line = (u + x) * ' ' + '\\' + (n - x - 1) * ' '
@@ -97,7 +100,7 @@ class Node:
         # Two children.
         left, n, p, x = self.left._display_aux()
         right, m, q, y = self.right._display_aux()
-        s = '%s' % self.key
+        s = self.my_display_info()
         u = len(s)
         first_line = (x + 1) * ' ' + (n - x - 1) * '_' + s + y * '_' + (m - y) * ' '
         second_line = x * ' ' + '/' + (n - x - 1 + u + y) * ' ' + '\\' + (m - y - 1) * ' '
