@@ -6,8 +6,6 @@ from bst import BST
 from node import Node
 from height_node import HeightNode
 
-
-# classes
 class HeightBST(BST):
     
     def __init__(self, root_node: HeightNode) -> None:
@@ -24,6 +22,11 @@ class HeightBST(BST):
     def root(self,new_node):
         assert isinstance(new_node,Node) or issubclass(new_node,Node), "new root is not Node type or subclass of Node"
         self.__root = new_node
+
+    ### new / overrided methods
+    def height(self):
+        """returns height of BST"""
+        return self.root.height
 
     def insert(self,z: HeightNode):
         """inserts Node into BST"""
@@ -73,59 +76,27 @@ class HeightBST(BST):
 
 def main():
 
-    # # create a Node
-    # node1 = Node(key=20)
-
-    # # create a BST, setting root to be the Node we just made
-    # my_tree = BST(node1)
-
-    # # generate and insert 15 random new Nodes into the BST
-    # # add 2 specific nodes to test deleting after
-    # NUM_NODES = 15
-    # for i in range(NUM_NODES):
-    #     j = random.randint(1,50)   
-    #     my_tree.insert(Node(j))
-
-    # # print BST
-    # my_tree.display()
-    
-    # # print minimum key in BST
-    # print("minimum key value: "+str(my_tree.minimum()))
-
-    # # insert 2 nodes. then delete them
-    # node_1 = Node(17)
-    # node_2 = Node(3)
-
-    # print("inserting 2 nodes:"+str(node_1)+", "+str(node_2))
-    # my_tree.insert(node_1)
-    # my_tree.insert(node_2)
-    # my_tree.display()
-
-    # print("deleting node: "+str(node_1))
-    # my_tree.delete(node_1)
-    # my_tree.display()
-    # print("deleting node: "+str(node_2))
-    # my_tree.delete(node_2)
-    # my_tree.display()
-
     # create a Node
     node1 = HeightNode(key=20)
 
     # create a BST, setting root to be the Node we just made
     my_tree = HeightBST(node1)
 
-    # generate and insert 15 random new Nodes into the BST
-    # add 2 specific nodes to test deleting after
+    # generate and insert 6 random new Nodes into the BST
     NUM_NODES = 6
     for i in range(NUM_NODES):
         j = random.randint(1,50)   
         my_tree.insert(HeightNode(j))
-    # insert 2 nodes. then delete them
+
+    # add 2 specific nodes to test deleting after
+    # hold onto a reference for them
     node_1 = HeightNode(17)
     node_2 = HeightNode(3)
     print("inserting 2 nodes:"+str(node_1)+", "+str(node_2))
     my_tree.insert(node_1)
     my_tree.insert(node_2)
+
+    # add some more nodes
     NUM_NODES = 6
     for i in range(NUM_NODES):
         j = random.randint(1,50)   
@@ -137,12 +108,16 @@ def main():
     # print minimum key in BST
     print("minimum key value: "+str(my_tree.minimum()))
 
+    # delete nodes
     print("deleting node: "+str(node_1))
     my_tree.delete(node_1)
     my_tree.display()
     print("deleting node: "+str(node_2))
     my_tree.delete(node_2)
     my_tree.display()
+
+    # print height of BST
+    print("Tree height is: " + str(my_tree.height()))
 
 
 if __name__ == "__main__":
