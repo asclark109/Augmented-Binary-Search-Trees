@@ -1,8 +1,5 @@
 from node import Node
 
-
-from node import Node
-
 class HeightNode(Node):
     """A node that contains extra data about its children nodes: the height
     

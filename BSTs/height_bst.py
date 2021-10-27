@@ -59,6 +59,7 @@ class HeightBST(BST):
             z_parent.update_heights_upward()         # new
         else:
             y = self.minimum(z.right)
+            y_parent = y.p                           # new
             if y.p is not None:
                 self.transplant(y,y.right)
                 y.right = z.right
@@ -66,7 +67,7 @@ class HeightBST(BST):
             self.transplant(z,y)
             y.left = z.left
             y.left.p = y
-            y.update_heights_upward()         # new
+            y_parent.update_heights_upward()         # new
 
 
 def main():
